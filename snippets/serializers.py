@@ -2,6 +2,7 @@ from rest_framework import serializers
 from snippets.models import Snippet, LANGUAGE_CHOICES, STYLE_CHOICES
 
 
+# approach 1: Serializers
 class SnippetSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, 
@@ -28,3 +29,10 @@ class SnippetSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+
+# approach 2: ModelSerializers (減少重複的資料)
+# Ref: https://www.django-rest-framework.org/tutorial/1-serialization/#creating-a-serializer-class
+class SnippetSerializer2(serializers.ModelSerializer):
+    class Meta:
+        model = Snippet
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
