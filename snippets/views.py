@@ -10,6 +10,8 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import permissions
 
+from user.permissions import IsOwnerOrReadOnly
+
 
 '''
 tutorial 2: function-based and requests and responses.
@@ -112,6 +114,9 @@ class SnippetDetail(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, 
+                          IsOwnerOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Snippet.objects.get(pk=pk)
