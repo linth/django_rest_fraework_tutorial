@@ -38,6 +38,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('snippets.urls')),
+
+    path('api-auth/', include('rest_framework.urls')),
     
     path('users/', user_views.UserList.as_view()),
     path('users/<int:pk>/', user_views.UserDetail.as_view()),
