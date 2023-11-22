@@ -7,6 +7,13 @@ from snippets.serializers import SnippetSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
+'''
+tutorial 2: function-based and requests and responses.
+
+Reference:
+    - https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
+'''
+
 
 # @csrf_exempt
 @api_view(['GET', 'POST'])
