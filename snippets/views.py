@@ -90,9 +90,10 @@ class SnippetList(APIView):
     """
     List all snippets, or create a new snippet.
     """
-    permission_classes = [permissions.IsAuthenticated,
-                          permissions.BasePermission, 
-                          permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [
+        # permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAuthenticated
+    ]
 
     def get(self, request, format=None):
         snippets = Snippet.objects.all()
@@ -114,8 +115,11 @@ class SnippetDetail(APIView):
     """
     Retrieve, update or delete a snippet instance.
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, 
-                          IsOwnerOrReadOnly]
+    permission_classes = [
+        # permissions.IsAuthenticatedOrReadOnly,
+        permissions.IsAuthenticated,
+        IsOwnerOrReadOnly,
+    ]
 
     def get_object(self, pk):
         try:

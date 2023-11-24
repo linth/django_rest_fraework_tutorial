@@ -7,6 +7,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
     Custom permission to only allow owners of an object to edit it.
     """
 
+    # 任何使用者可讀取資料, 但必須owner才可以修改。
     def has_object_permission(self, request, view, obj):
         # Read permissions are allowed to any request,
         # so we'll always allow GET, HEAD or OPTIONS requests.
