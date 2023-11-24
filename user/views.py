@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics, permissions
+from snippets.permissions import IsOwnerOrReadOnly
 
 from user.serializers import UserSerializer
-from user.permissions import IsOwnerOrReadOnly
+
 
 
 class UserList(generics.ListAPIView):

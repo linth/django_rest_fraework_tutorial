@@ -1,5 +1,6 @@
 from rest_framework import status
 from snippets.models import Snippet
+from snippets.permissions import IsOwnerOrReadOnly
 from snippets.serializers import SnippetSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,7 +8,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import permissions, mixins, generics
 
-from user.permissions import IsOwnerOrReadOnly
+
 
 
 '''
@@ -89,7 +90,9 @@ class SnippetList(APIView):
     """
     List all snippets, or create a new snippet.
     """
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated,
+                          permissions.BasePermission, 
+                          permissions.IsAuthenticatedOrReadOnly]
 
     def get(self, request, format=None):
         snippets = Snippet.objects.all()
