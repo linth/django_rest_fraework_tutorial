@@ -11,6 +11,10 @@ urlpatterns = [
     # class-based view
     path('snippets-class-based/', views.SnippetList.as_view()),
     path('snippets-class-based/<int:pk>/', views.SnippetDetail.as_view()),
+
+    # class-based view with mixin
+    path('snippets-mixin/', views.SnippetMixinList.as_view()),
+    path('snippets-mixin/<int:pk>/', views.SnippetDatail.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

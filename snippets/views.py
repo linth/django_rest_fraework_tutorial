@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
-from rest_framework import permissions
+from rest_framework import permissions, mixins, generics
 
 from user.permissions import IsOwnerOrReadOnly
 
@@ -137,4 +137,32 @@ class SnippetDetail(APIView):
         snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+'''
+using mixins class to implement the class-based views.
+'''
+class SnippetMixinList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self, request, *arg, **kwargs):
+        return self.list(request=request, *arg, **kwargs)
+    
+    def post(self, request, *arg, **kwargs):
+        return self.create(request=request, *arg, **kwargs)
+    
+
+class SnippetDatail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+    def get(self, request, *arg, **kwargs):
+        return self.retrieve(request, *arg, **kwargs)
+    
+    def put(self, request, *arg, **kwargs):
+        return self.update(request, *arg, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
     
