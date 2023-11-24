@@ -34,6 +34,9 @@ class SnippetSerializer2(serializers.Serializer):
 # approach 2: ModelSerializers (減少重複的資料)
 # Ref: https://www.django-rest-framework.org/tutorial/1-serialization/#creating-a-serializer-class
 class SnippetSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    # highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
+
     class Meta:
         model = Snippet
         fields = ['id', 'title', 'code', 'linenos', 'language', 'style', 'owner']

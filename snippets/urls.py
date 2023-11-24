@@ -5,15 +5,15 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('', views.api_root),
-    path('snippets/<int:pk>/highlight/', views.SnippetHighlight.as_view()),
+    path('snippets/<int:pk>/highlight/', views.SnippetHighlight.as_view(), name='snippet-highlight'),
 
     # function-based view
     path('snippets/', views.snippet_list),
     path('snippets/<int:pk>/', views.snippet_detail),
 
     # class-based view
-    path('snippets-class-based/', views.SnippetList.as_view()),
-    path('snippets-class-based/<int:pk>/', views.SnippetDetail.as_view()),
+    path('snippets-class-based/', views.SnippetList.as_view(), name='snippet-list'),
+    path('snippets-class-based/<int:pk>/', views.SnippetDetail.as_view(), name='snippet-detail'),
 
     # class-based view with mixin
     path('snippets-mixin/', views.SnippetMixinList.as_view()),
