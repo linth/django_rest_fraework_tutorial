@@ -165,4 +165,18 @@ class SnippetDatail(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.D
     
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
+
+'''
+using generic class-based views.
+'''
+class SnippetGenericList(generics.ListAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
+
+class SnippetGenericDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
+
     
