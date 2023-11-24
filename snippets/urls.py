@@ -4,6 +4,9 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 urlpatterns = [
+    path('', views.api_root),
+    path('snippets/<int:pk>/highlight/', views.SnippetHighlight.as_view()),
+
     # function-based view
     path('snippets/', views.snippet_list),
     path('snippets/<int:pk>/', views.snippet_detail),

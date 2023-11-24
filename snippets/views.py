@@ -7,16 +7,25 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import permissions, mixins, generics
-
+from rest_framework import reverse, renderers
 
 
 
 '''
 tutorial 2: function-based and requests and responses.
 
+tutorial 5: relationships & hyperlinked apis.
+
 Reference:
     - https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
 '''
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        # 'user': reverse('user-list', request=request, format=format),
+        # 'snippets': reverse('snippet-list', request=request, format=format)
+    })
 
 
 # @csrf_exempt
@@ -66,6 +75,14 @@ def snippet_detail(request, pk, format=None):
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
+class SnippetHighlight(generics.GenericAPIView):
+    queryset = Snippet.objects.all()
+    renderer_classes = [renderers.StaticHTMLRenderer]
+
+    def get(self, request, *arg, **kwargs):
+        snippet = self.get_object()
+        return Response(snippet.highlighted)
 
 
 '''
