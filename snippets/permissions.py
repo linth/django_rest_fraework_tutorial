@@ -18,3 +18,16 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         return obj.owner == request.user
 
 
+class IsOwnerOnly(permissions.BasePermission):
+
+    def has_permission(self, request, view):
+        # 這個方法主要用於檢查對於整個資源（例如列表視圖）的權限
+        return True
+    
+    def has_object_permission(self, request, view, obj):
+        # 這個方法主要用於檢查對於單個資源對象的權限（例如詳細視圖）
+        if request.user.is_superuser:
+            # 當 admin 時, 可以操作。
+            return True        
+        
+        return obj.owner == request.user

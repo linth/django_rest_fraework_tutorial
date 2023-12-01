@@ -43,6 +43,7 @@ urlpatterns = [
     
     path('users/', user_views.UserList.as_view()),
     path('users/<int:pk>/', user_views.UserDetail.as_view()),
+    path('users/list/', user_views.UserView.as_view()),
 
     # for swagger.
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
