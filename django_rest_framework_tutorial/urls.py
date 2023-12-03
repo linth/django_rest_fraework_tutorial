@@ -24,7 +24,6 @@ from django.conf import settings
 
 
 from user import views as user_views
-from cart.views import ProductAPI
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -49,8 +48,8 @@ urlpatterns = [
     path('users/<int:pk>/', user_views.UserDetail.as_view()),
     path('users/list/', user_views.UserView.as_view()),
     
-    path('products/', ProductAPI.as_view(), name='products'),
-
+    path('', include('cart.urls')),
+    
     # for swagger.
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
