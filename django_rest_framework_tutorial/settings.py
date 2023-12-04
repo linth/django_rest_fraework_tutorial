@@ -77,6 +77,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_rest_framework_tutorial.wsgi.application'
 
 
+CART_SESSION_ID = 'cart'
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
